@@ -1,0 +1,33 @@
+# Random-Joke-Generator
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Joke Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    #joke { margin-bottom: 1rem; font-size: 1.2rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Random Joke Generator</h1>
+  <div id="joke">Click the button to get a joke!</div>
+  <button onclick="getJoke()">Get Random Joke</button>
+
+  <script>
+    async function getJoke() {
+      const jokeDiv = document.getElementById('joke');
+      jokeDiv.textContent = 'Loading...';
+      try {
+        const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+        const data = await res.json();
+        jokeDiv.textContent = `${data.setup} — ${data.punchline}`;
+      } catch (err) {
+        jokeDiv.textContent = 'Oops! Could not fetch a joke right now.';
+      }
+    }
+  </script>
+</body>
+</html>
